@@ -9,12 +9,9 @@ services:
         VARIANT: "7.4-apache-4"
     volumes:
       - ..:/workspace:cached
-    # Uncomment the next line to use a non-root user for all processes.
     user: www-data
-    ports:
-      - "8080"
-    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
-    # (Adding the "ports" property to this file will not forward from a Codespace.)
+    expose:
+      - "80"
   db:
     image: mariadb:10.4
     restart: unless-stopped
@@ -40,5 +37,11 @@ services:
       CHROMEDRIVER_URL_BASE: "/wd/hub"
     security_opt:
       - seccomp:unconfined
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - '1025' # smtp server
+      - '8025' # web ui
 volumes:
   mariadb-data: null

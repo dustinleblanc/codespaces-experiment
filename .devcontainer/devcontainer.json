@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.234.0/containers/php-mariadb
 // Update the VARIANT arg in docker-compose.yml to pick a PHP version
 {
-	"name": "PHP & MariaDB (Community)",
+	"name": "OLH Dev (Experimental!)",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspace",
@@ -15,11 +15,13 @@
 	],
 	// For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)
 	"forwardPorts": [
-		80,
-		3306
+		80
 	],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "composer install"
+	"postCreateCommand": ".devcontainer/init.sh",
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "www-data"
+	"remoteUser": "www-data",
+	"remoteEnv": {
+		"PATH": "${containerEnv:PATH}:/workspace/vendor/bin"
+	}
 }
